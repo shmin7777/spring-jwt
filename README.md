@@ -36,7 +36,7 @@ JWT token을 사용해서 front-end단과 통신하는 example
 ![image](https://user-images.githubusercontent.com/67637716/231376700-d62d8d08-1413-41a6-bbf3-8158fc6feb5e.png)   
 
 
-## login후 토큰 발급 과정
+## login 토큰 발급 과정
 1. `UsernamePasswordAuthenticationFilter`를 구현한 `JwtAuthenticationFilter` 를 만든다.
 2. securityConfig에서 `new JwtAuthenticationFilter(authenticationManager)` filter 등록
 3. `UsernamePasswordAuthenticationFilter`의 `attemptAuthentication()`, `successfulAuthentication` override
@@ -45,8 +45,17 @@ JWT token을 사용해서 front-end단과 통신하는 example
 6. 인증이 완료되면 `successfulAuthentication()` 에서 JWT 만들어서 응답
 
 
-## 토큰 발급
+#### 토큰 발급
 ![image](https://user-images.githubusercontent.com/67637716/231396213-e466fe8a-2af2-4ec8-b6db-05be3cbc70c5.png)    
 
 /login(POST)으로 요청을 보내면 응답 header의 Authorization에 jwt token이 들어가 있는걸 확인 할 수 있다.  
 ![image](https://user-images.githubusercontent.com/67637716/231396451-ec18b2e4-cf46-4532-8670-6eeb8faffc5e.png)  
+
+## 권한이나 인증이 필요한 주소에서 jwt확인
+`BasicAuthenticationFilter`는 권한이나 인증이 필요한 특정 주소를 요청했을 때 이 필터를 무조건 탐.  
+만약 권한이나 인증이 필요한 주소가 아니라면 이 필터를 타지 않음.  
+
+// 서명 확인  
+![image](https://user-images.githubusercontent.com/67637716/231422434-56cafc7d-7f72-4685-a8f4-b9cf72424bb4.png)  
+
+TODO 토큰 만료기간 확인도 해야할듯  
